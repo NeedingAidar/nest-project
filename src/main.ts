@@ -9,8 +9,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await app.listen(3000);
 
-  console.log(process.env.mongo_url)
-
   app.useGlobalInterceptors(new WrapResponseInterceptor())
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new HttpExceptionFilter());

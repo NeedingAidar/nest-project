@@ -3,11 +3,18 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose'
 import { BooksModule } from './books/books.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017'),
-    BooksModule
+  imports: [MongooseModule.forRootAsync({
+    imports: [ConfigModule],
+    useFactory: async(configService: ConfigService) => ({
+      uri: configService.get('mongoURL'),
+    }),
+    inject: [ConfigService]
+    }),
+    BooksModule,
+    ConfigModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService],
