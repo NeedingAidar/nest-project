@@ -6,6 +6,7 @@ import { BooksModule } from './books/books.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
+import { CommentsModule } from './comments/book-comments.module';
 
 @Module({
   imports: [MongooseModule.forRootAsync({
@@ -17,7 +18,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     BooksModule,
     ConfigModule.forRoot(),
-    AuthModule
+    AuthModule,
+    CommentsModule
   ],
   controllers: [AppController],
   providers: [AppService],
